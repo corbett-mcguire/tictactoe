@@ -1,0 +1,43 @@
+title {
+    text-align: center;
+    font-size: large;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+body {
+    text-align: center;
+    font-size: 40;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-column {
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+    height: 200;
+    width: 200;
+}
+
+.cell {
+    border: 5px solid rgba(0, 0, 0, 1);
+    height: 500px;
+    width: 500;
+}
+
+#winMsgText {
+    text-align: center;
+    font-size: 35;
+    border: 1px black;
+    height: 55px;
+    width: 100px;
+    margin: 10px;
+}
