@@ -1,41 +1,49 @@
-title {
-    text-align: center;
-    font-size: large;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
 body {
     text-align: center;
-    font-size: 40;
+    font-size: medium;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-.flex-container {
+.grid {
+	width: 430px;
+	height: 430px;
+	margin: 0 auto;
+    display: grid;
+	grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+}
+
+
+
+/*flex bug fix*/
+/* .flex-container {
     display: flex;
     justify-content: center;
     align-items: center;
-}
+} */
 
-.flex-column {
+/* .flex-column {
     height: 100%;
     width: 100%;
     flex-direction: column;
-}
+} */
 
-.flex-wrap {
+/* .flex-wrap {
     flex-wrap: wrap;
-    height: 200;
-    width: 200;
-}
+    height: 800px;
+    width: 15px;
+} */
 
 .cell {
-    border: 5px solid rgba(0, 0, 0, 1);
-    height: 500px;
-    width: 500;
+    border: 6px solid rgba(0, 0, 0, 1);
+    height: 100px;
+    width: 100px;
+    cursor: pointer;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
-#winMsgText {
+.restartButton {
     text-align: center;
-    font-size: 35;
+    font-size: 30px;
     border: 1px black;
     height: 55px;
     width: 100px;
