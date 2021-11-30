@@ -5,6 +5,9 @@ let gameStart = true;
 let currentPlayer = player1;
 let cellStore = ["", "", "", "", "", "", "", "", ""];
 
+const winMessage = () => 'Phyrric Victory!';
+const tieMessage = () => "It's a tie..."
+
 const win_conditions = [
     [0, 1, 2],
     [3, 4, 5],
@@ -16,9 +19,8 @@ const win_conditions = [
     [2, 4, 6]
 ];
 
-function playerClick(clickedCell, clickedCellIndex) {
-    const playerClick = clickedCell.target;
-    const clickedCell = parseInt(clickedCell.getAttribute('data-cell-index'));
+function cellClick(clickedCell, clickedCellIndex) {
+    gamePhase[clickedCellIndex] = currentPlayer;
     clickedCell.innerHTML = currentPlayer;
 }
 
@@ -26,7 +28,7 @@ function changePlayerTurn() {
     currentPlayer = currentPlayer === player1 ? player2 : player1
 }
 function gameResult() {
-    let gameWin = false;
+    let gameOver = false;
     for (let i = 0; i <= 7; i++) {
         const winCondition = winConditions[i]
         let a = gamePhase[winCondition[0]];
@@ -37,37 +39,43 @@ function gameResult() {
 
         }
         if (a === b && b === c) {
-            gameWin = true;
+            gameOver = true;
             break
         
         }
+    
 
 }
 
 if (gameWin) {
-    statusDisplay.innerHTML = winText();
+    statusDisplay.innerHTML = winMessage();
+    gameStart = false;
+    return;
+}
+
+let gameTie = !gamePhase.includes("");
+if (gameTie) {
+    statusDisplay.innerHTML = tieMessage();
     gameStart = false;
     return;
 }
 
 
 
-const gridElement = document.getElementById("grid");
-const cellElements = document.querySelector("[data-cell]");
-const winTextElement = document.getElementById("winText");
-// player 1 check
-const winTextCheckElement = document.getElementById("winTextElement");
 
-function gameRestart() {
-    gameRestart = true;
-    grid = ["", "", "", "", "", "", "", "", ""];
+// const gridElement = document.getElementById("grid");
+// const cellElements = document.querySelector("[data-cell]");
+// const winTextElement = document.getElementById("winText");
+// // player 1 check
+// const winTextCheckElement = document.getElementById("winTextElement");
+
+function restartGame() {
+    gameStart = true;
     currentPlayer = player1;
+    grid = ["", "", "", "", "", "", "", "", ""];
     document.querySelectorAll(".cell").forEach(cell => cell.innerHTML = "");
 }
 
 document.querySelectorAll(".cell").forEach(cell => cell.addEventListener ("click", playerClick));
-document.querySelectorAll("restartButton").addEventListener("click", gameRestart);
-
-
-
-
+document.querySelectorAll(".restartButton").addEventListener("click", restartGame);
+}
