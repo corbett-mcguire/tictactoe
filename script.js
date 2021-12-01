@@ -1,7 +1,13 @@
+let gameIsActive = true;
 let currentPlayer = "X";
-const currentPlayerTurn = () => `player is${currentPlayer}`;
+let gamePhase = ["", "", "", "", "", "", "", "", ""];
+const currentPlayerTurn = () => `Player is ${currentPlayer}`;
+const currentGameState = () => `${gameLog}`;
+
 const userStatus = document.querySelector('.currentPlayer')
 userStatus.innerHTML = currentPlayerTurn();
+const gameLogElement = document.querySelector('.gameStatus');
+let gameLog ='';
 const winConditions = [
     [0, 1, 2],
     [3, 4, 5],
@@ -12,15 +18,22 @@ const winConditions = [
     [0, 4, 8],
     [2, 4, 6]
 ];
-let gamePhase = ["", "", "", "", "", "", "", "", ""];
+
 function changePlayerTurn() {
     currentPlayer = currentPlayer === "X" ? "O" : "X";
     userStatus.innerHTML = currentPlayerTurn();
 }
-function updateGameBoard(cellClicked, cellIndex){
+
+function updateGamelog(gameStatus) {
+gameLog = gameStatus
+gameLogElement.innerHTML = currentGameState()
+}
+
+function updateGameBoard(cellClicked, cellIndex) {
     gamePhase[cellIndex] = currentPlayer;
     cellClicked.innerHTML = currentPlayer
 }
+
 function gameResult() {
     let gameOver = false;
     for (let i = 0; i <= 7; i++) {
@@ -28,42 +41,41 @@ function gameResult() {
         let a = gamePhase[winCondition[0]];
         let b = gamePhase[winCondition[1]];
         let c = gamePhase[winCondition[2]];
-        
-        
         if (a === '' || b === '' || c === '') {
             continue;
         }
         if (a === b && b === c) {
-            roundWon = true;
+            gameOver = true;
             break
         }
-        if (gameOver){
+        if (gameOver) {
+            updateGamelog('User won the game')
             console.log("User won the game");
         }
     }
+    if (gameOver) {
+        // statusDisplay.innerHTML = winMessage();
+        gameIsActive = false;
+        console.log("You won the game!")
+        updateGamelog('You won the game')
+        return;
+    }
+    let gameTie = !gamePhase.includes("");
+    if (gameTie) {
+        // statusDisplay.innerHTML = tieMessage();
+        gameIsActive = false;
+        updateGamelog('Game is a draw.')
 
-
-
-if (gameOver) {
-    // statusDisplay.innerHTML = winMessage();
-    gameStart = false;
-    console.log("You won the game!")
-    return;
+        console.log("Game is a draw")
+        return;
+    }
+    changePlayerTurn();
 }
 
-let gameTie = !gamePhase.includes("");
-if (gameTie) {
-    // statusDisplay.innerHTML = tieMessage();
-    gameStart = false;
-    console.log("Game is a draw")
-    return;
-}
-changePlayerTurn();
-
-}
-function playerClick(clickedCellEvent){
+function playerClick(clickedCellEvent) {
     console.log("calling player click")
 }
+
 function handleCellLogic(cellClickEvent) {
     console.log("clickedCellIndex")
     const currentClickedCell = cellClickEvent.target;
@@ -71,18 +83,9 @@ function handleCellLogic(cellClickEvent) {
     updateGameBoard(currentClickedCell, currentClickedCellIndex);
     console.log(currentClickedCellIndex)
     gameResult();
-
-if (gamePhase[currentClickedCellIndex] !== "" || !gameStart) {
-    return;
+    if (gamePhase[currentClickedCellIndex] !== "" || !gameIsActive) {
+        return;
+    }
 }
-}
-// function handleResartGame() { come back to this
-//     gameStart = true;
-//     currentPlayer = "X";
-//     gamePhase = ["", "", "", "", "", "", "", "", ""];
-//     userStatus.innerHTML = currentPlayerTurn();
-//     document.querySelector('.cell').forEach(cell => cell.innerHTML = "");
-
-// }
 
 document.querySelectorAll('.cell').forEach(cell => cell.addEventListener('click', handleCellLogic));
