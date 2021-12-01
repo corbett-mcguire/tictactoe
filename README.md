@@ -4,4 +4,6 @@ Created a container grid of 3 columns and making the cells that would recieve th
 In HTML I added the boiler plate, the enumerated cells and the text for current player and game result.
 In JavaScript the win conditions constant is added, the 'for loop' that would be used to cycle through the win conditions, the formula for determining conditions met and the game log that would send the appropriate message at the end of the game.
 Function for alternating player turns added.
-
+Player click function and event listener added.
+If/Let for output messages added to decern between a win and tie.
+Cell logic function added so that the player click is recorded properly.
