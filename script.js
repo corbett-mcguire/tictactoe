@@ -8,7 +8,7 @@ const userStatus = document.querySelector('.currentPlayer')
 userStatus.innerHTML = currentPlayerTurn();
 const gameLogElement = document.querySelector('.gameStatus');
 let gameLog ='';
-const winConditions = [
+const winConditions = [    // What a user has to achieve to win
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8],
@@ -19,22 +19,22 @@ const winConditions = [
     [2, 4, 6]
 ];
 
-function changePlayerTurn() {
+function changePlayerTurn() {    //Alternates between 'player X' and 'player O'
     currentPlayer = currentPlayer === "X" ? "O" : "X";
     userStatus.innerHTML = currentPlayerTurn();
 }
 
-function updateGamelog(gameStatus) {
+function updateGamelog(gameStatus) {  //For the message output
 gameLog = gameStatus
 gameLogElement.innerHTML = currentGameState()
 }
 
-function updateGameBoard(cellClicked, cellIndex) {
+function updateGameBoard(cellClicked, cellIndex) { //For cell storage
     gamePhase[cellIndex] = currentPlayer;
     cellClicked.innerHTML = currentPlayer
 }
 
-function gameResult() {
+function gameResult() {    //The game logic for loop
     let gameOver = false;
     for (let i = 0; i <= 7; i++) {
         const winCondition = winConditions[i]
@@ -44,24 +44,24 @@ function gameResult() {
         if (a === '' || b === '' || c === '') {
             continue;
         }
-        if (a === b && b === c) {
+        if (a === b && b === c) {  //Verifies that the conditions have been met
             gameOver = true;
             break
         }
         if (gameOver) {
-            updateGamelog('User won the game')
+            updateGamelog('User won the game')  
             console.log("User won the game");
         }
     }
-    if (gameOver) {
+    if (gameOver) {    //Output message if win conditions are met
         // statusDisplay.innerHTML = winMessage();
         gameIsActive = false;
         console.log("You won the game!")
-        updateGamelog('You won the game')
+        updateGamelog('You won the game!')
         return;
     }
     let gameTie = !gamePhase.includes("");
-    if (gameTie) {
+    if (gameTie) {     //Output message if game ends without for loop sensing 
         // statusDisplay.innerHTML = tieMessage();
         gameIsActive = false;
         updateGamelog('Game is a draw.')
@@ -72,11 +72,11 @@ function gameResult() {
     changePlayerTurn();
 }
 
-function playerClick(clickedCellEvent) {
+function playerClick(clickedCellEvent) { //Function for the player click
     console.log("calling player click")
 }
 
-function handleCellLogic(cellClickEvent) {
+function handleCellLogic(cellClickEvent) { //How the cells see what has been clicked
     console.log("clickedCellIndex")
     const currentClickedCell = cellClickEvent.target;
     const currentClickedCellIndex = parseInt(currentClickedCell.getAttribute('data-cell-index'));
